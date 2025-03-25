@@ -1,20 +1,23 @@
 {
   "name": "tasklist",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sistema de lista de tarefas",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "node index.js",
     "build": "echo 'No build needed for static files'"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["tasklist", "to-do", "backend", "frontend"],
+  "author": "Seu Nome",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.13.0"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

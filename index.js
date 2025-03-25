@@ -31,6 +31,7 @@ app.use('/api/tasks', taskRoutes);
 
 // Servindo os arquivos estáticos do front-end se a aplicação for em produção
 if (process.env.NODE_ENV === 'production') {
+  // Definindo a pasta pública (onde os arquivos estáticos serão)
   app.use(express.static(path.join(__dirname, 'public')));
 
   // Serve o index.html quando o caminho for a raiz
@@ -44,4 +45,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
 

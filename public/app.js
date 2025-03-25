@@ -1,6 +1,36 @@
 document.getElementById("createTaskBtn").addEventListener("click", createTask);
 
-const apiUrl = "http://localhost:3000/api/tasks";  // Verifique se o servidor está rodando aqui ou se é necessário alterar
+// Defina a URL da API com base no ambiente (produção ou local)
+const apiUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://prj_RxPwwDqrW1UU7FM9nd6XNqU1xXpF.vercel.app/api/tasks'  // Substitua pelo seu domínio do Vercel
+    : 'http://localhost:3000/api/tasks';  // Para ambiente local
+
+// Função para criar uma tarefa
+function createTask() {
+    const title = document.getElementById("taskTitle").value;
+    const description = document.getElementById("taskDescription").value;
+
+    if (!title || !description) {
+        alert('Título e descrição são obrigatórios!');
+        return;
+    }
+
+    const taskData = { title, description };
+
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(taskData),
+    })
+    .then(response => response.json())
+    .then(task => {
+        console.log('Tarefa criada:', task);
+        loadTasks();  // Recarrega a lista de tarefas
+    })
+    .catch(error => console.error('Erro ao criar tarefa:', error));
+}
 
 // Função para exibir as tarefas
 function loadTasks() {
@@ -19,6 +49,23 @@ function loadTasks() {
         })
         .catch(error => console.error('Erro ao carregar as tarefas:', error));
 }
+
+// Função para excluir uma tarefa
+function deleteTask(taskId) {
+    fetch(`${apiUrl}/${taskId}`, {
+        method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Tarefa excluída:', data);
+        loadTasks();  // Recarrega a lista de tarefas
+    })
+    .catch(error => console.error('Erro ao excluir tarefa:', error));
+}
+
+// Carregar as tarefas ao iniciar
+loadTasks();
+
 
 // Função para criar tarefa
 function createTask() {
